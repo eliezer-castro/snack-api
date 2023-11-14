@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { criarSessao, obterSessao, atualizarSessao, deletarSessao } from '../controllers/sessaoController';
+import { criarSessao, obterSessao, atualizarSessao, deletarSessao } from '../controllers/SessaoController';
 
 const sessaoRoutes = Router();
 
