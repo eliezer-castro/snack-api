@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Sessao from '../models/Sessao';
+import Sessao from '../models/SessaoModel';
 import { v4 as uuidv4 } from 'uuid';
 
 

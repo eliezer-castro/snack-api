@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import Pedido from '../models/Pedido';
-import Sessao from '../models/Sessao';
+import Pedido from '../models/PedidoModel';
+import Sessao from '../models/SessaoModel';
 
 
 export const criarPedido = async (req: Request, res: Response) => {

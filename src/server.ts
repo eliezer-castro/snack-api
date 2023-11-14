@@ -4,6 +4,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import { pedidosRoutes } from './routes/pedidoRoutes';
 import { sessaoRoutes } from './routes/sessaoRoutes';
+import { produtosRoutes } from './routes/produtosRoutes';
 
 const app = express();
 app.use(cors());
@@ -11,6 +12,7 @@ app.use(express.json());
 
 app.use('/pedidos', pedidosRoutes);
 app.use('/sessao', sessaoRoutes);
+app.use('/produtos', produtosRoutes);
 
 
 const CONNECTION_STRING = process.env.MONGODB_URI;
