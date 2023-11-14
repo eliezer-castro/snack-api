@@ -25,10 +25,12 @@ export const criarSessao = async (req: Request, res: Response) => {
 
 export const obterSessao = async (req: Request, res: Response) => {
   try {
-    const sessao = await Sessao.findById(req.params.id);
+    const identificador = req.params.id;
+    const sessao = await Sessao.findOne({ identificador: identificador });
     if (!sessao) {
       return res.status(404).json({ message: 'Sessão não encontrada' });
     }
+
     res.status(200).json(sessao);
   } catch (error) {
     if (error instanceof Error) {
@@ -36,6 +38,7 @@ export const obterSessao = async (req: Request, res: Response) => {
     }
   }
 };
+
 
 export const atualizarSessao = async (req: Request, res: Response) => {
   try {
