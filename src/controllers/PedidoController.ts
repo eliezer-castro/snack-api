@@ -12,6 +12,11 @@ export const criarPedido = async (req: Request, res: Response) => {
     if (!sessaoExistente) {
       return res.status(404).json({ message: 'Sessão não encontrada' });
     }
+
+    if (sessaoExistente.dataExpiracao && sessaoExistente.dataExpiracao < new Date()) {
+      return res.status(403).json({ message: 'Sessão expirada' });
+    }
+
     const novoPedido = new Pedido({
       ...dadosPedido,
       sessao: sessaoId
@@ -63,7 +68,6 @@ export const atualizarPedido = async (req: Request, res: Response) => {
   }
 };
 
-// Deletar um pedido
 export const deletarPedido = async (req: Request, res: Response) => {
   try {
     await Pedido.findByIdAndDelete(req.params.id);

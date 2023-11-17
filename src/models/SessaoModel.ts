@@ -3,8 +3,9 @@ import mongoose from 'mongoose';
 const sessaoSchema = new mongoose.Schema({
   nome: String,
   chavePIX: String,
-  validade: Date,
+  dataCriacao: { type: Date, default: Date.now },
   identificador: String,
+  dataExpiracao: Date,
 });
 
 const Sessao = mongoose.model('Sessao', sessaoSchema);

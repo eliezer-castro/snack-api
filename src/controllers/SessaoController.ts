@@ -7,11 +7,13 @@ export const criarSessao = async (req: Request, res: Response) => {
   try {
     console.log(req.body);
     const identificadorUnico = uuidv4();
-
+    // const tempoExpiracao = 1 * 60 * 60 * 1000;
+    const tempoExpiracao = 30 * 1000;
 
     const novaSessao = new Sessao({
       ...req.body,
-      identificador: identificadorUnico
+      identificador: identificadorUnico,
+      dataExpiracao: new Date(Date.now() + tempoExpiracao)
     });
 
     const sessaoSalva = await novaSessao.save();
@@ -29,6 +31,9 @@ export const obterSessao = async (req: Request, res: Response) => {
     const sessao = await Sessao.findOne({ identificador: identificador });
     if (!sessao) {
       return res.status(404).json({ message: 'Sessão não encontrada' });
+    }
+    if (sessao.dataExpiracao && sessao.dataExpiracao < new Date()) {
+      return res.status(403).json({ message: 'Sessão expirada' });
     }
 
     res.status(200).json(sessao);
