@@ -7,12 +7,16 @@ import { sessaoRoutes } from "./routes/sessaoRoutes";
 import { produtosRoutes } from "./routes/produtosRoutes";
 
 const app = express();
+const allowedDomains = [
+  'http://127.0.0.1:5173/',
+]
 app.use(cors({
-  origin: "*",
-  methods: "*",
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true,
-}));
+  origin: function (origin, callback) {
+    const allowed = origin ? allowedDomains.includes(origin) : false;
+
+    callback(null, allowed)
+  }
+}))
 app.use(express.json());
 
 app.use("/pedidos", pedidosRoutes);
