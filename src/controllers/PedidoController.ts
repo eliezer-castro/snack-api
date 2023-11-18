@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import jwt from 'jsonwebtoken';
 import Pedido from '../models/PedidoModel';
 import Sessao from '../models/SessaoModel';
 
@@ -13,25 +14,29 @@ export const criarPedido = async (req: Request, res: Response) => {
       return res.status(404).json({ message: 'Sessão não encontrada' });
     }
 
-    if (sessaoExistente.dataExpiracao && sessaoExistente.dataExpiracao < new Date()) {
-      return res.status(403).json({ message: 'Sessão expirada' });
+
+    if (typeof sessaoExistente.token === 'string') {
+      jwt.verify(sessaoExistente.token, process.env.JWT_SECRET!, async (err, decoded) => {
+        if (err) {
+          return res.status(403).json({ message: 'Sessão expirada ou inválida' });
+        }
+        const novoPedido = new Pedido({
+          ...dadosPedido,
+          sessao: sessaoId
+        });
+
+        const pedidoSalvo = await novoPedido.save();
+        res.status(201).json(pedidoSalvo);
+      });
+    } else {
+
+      return res.status(403).json({ message: 'Token inválido' });
     }
-
-    const novoPedido = new Pedido({
-      ...dadosPedido,
-      sessao: sessaoId
-    });
-
-    const pedidoSalvo = await novoPedido.save();
-    res.status(201).json(pedidoSalvo);
   } catch (error) {
     if (error instanceof Error)
       res.status(500).json({ message: error.message });
   }
-}
-
-
-
+};
 export const listarPedidos = async (req: Request, res: Response) => {
   try {
     const pedidos = await Pedido.find();
@@ -42,7 +47,6 @@ export const listarPedidos = async (req: Request, res: Response) => {
     }
   }
 };
-
 
 export const obterPedidos = async (req: Request, res: Response) => {
   try {

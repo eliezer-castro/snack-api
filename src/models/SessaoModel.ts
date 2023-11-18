@@ -6,6 +6,7 @@ const sessaoSchema = new mongoose.Schema({
   dataCriacao: { type: Date, default: Date.now },
   identificador: String,
   dataExpiracao: Date,
+  token: String,
 });
 
 const Sessao = mongoose.model('Sessao', sessaoSchema);
