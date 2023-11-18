@@ -7,16 +7,25 @@ import { sessaoRoutes } from './routes/sessaoRoutes';
 import { produtosRoutes } from './routes/produtosRoutes';
 
 const app = express();
-// app.use(cors());
+app.use(express.json());
+
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:5173");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
+
+  // Qualquer endereço pode fazer requisição "*"
+  res.header("Access-Control-Allow-Origin", "*");
+
+  // Tipos de método que a API aceita
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+
+  // Permitir o envio de dados para API
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+
+  // Executar o cors
+  app.use(cors());
+
+  // Quando não houver erro deve continuar o processamento
   next();
 });
-app.use(express.json());
 
 
 app.use('/pedidos', pedidosRoutes);
