@@ -7,15 +7,8 @@ import { sessaoRoutes } from './routes/sessaoRoutes';
 import { produtosRoutes } from './routes/produtosRoutes';
 
 const app = express();
-// app.use(cors());
+app.use(cors());
 app.use(express.json());
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*'); // Permitir qualquer origem
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Métodos permitidos
-  res.header('Access-Control-Allow-Headers', 'Content-Type'); // Cabeçalhos permitidos
-  next();
-});
-
 
 
 app.use('/pedidos', pedidosRoutes);
