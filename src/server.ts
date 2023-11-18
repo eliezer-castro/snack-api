@@ -7,7 +7,7 @@ import { sessaoRoutes } from './routes/sessaoRoutes';
 import { produtosRoutes } from './routes/produtosRoutes';
 
 var corsOptions = {
-  origin: 'http://127.0.0.1:5173',
+  origin: '*',
   credentials: true,
   optionsSuccessStatus: 200
 }
