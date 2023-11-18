@@ -9,6 +9,11 @@ import { produtosRoutes } from './routes/produtosRoutes';
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use((req, res) => {
+  res.header('Access-Control-Allow-Origin', '*');
+})
+
+
 
 app.use('/pedidos', pedidosRoutes);
 app.use('/sessao', sessaoRoutes);
