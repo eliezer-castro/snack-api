@@ -13,8 +13,8 @@ var corsOptions = {
 }
 
 const app = express();
-app.options('*', cors(corsOptions));
 app.use(express.json());
+app.options('*', cors(corsOptions));
 
 
 app.use('/pedidos', pedidosRoutes);
