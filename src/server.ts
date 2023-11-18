@@ -6,8 +6,16 @@ import { pedidosRoutes } from './routes/pedidoRoutes';
 import { sessaoRoutes } from './routes/sessaoRoutes';
 import { produtosRoutes } from './routes/produtosRoutes';
 
+var corsOptions = {
+  origin: 'http://127.0.0.1:5173/',
+  credentials: true,
+  optionsSuccessStatus: 200
+}
+
 const app = express();
-app.use(cors());
+app.use(cors(
+  corsOptions
+));
 app.use(express.json());
 
 
