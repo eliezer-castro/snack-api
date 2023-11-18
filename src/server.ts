@@ -14,9 +14,6 @@ app.use(cors({
   preflightContinue: true,
 }));
 app.use(express.json());
-// app.use((req, res) => {
-//   res.header('Access-Control-Allow-Origin', '*');
-// })
 
 
 
