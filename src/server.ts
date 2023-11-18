@@ -7,9 +7,16 @@ import { sessaoRoutes } from './routes/sessaoRoutes';
 import { produtosRoutes } from './routes/produtosRoutes';
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: 'http://127.0.0.1:5173',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: false,
+  preflightContinue: true,
+}));
 app.use(express.json());
-
+// app.use((req, res) => {
+//   res.header('Access-Control-Allow-Origin', '*');
+// })
 
 
 
